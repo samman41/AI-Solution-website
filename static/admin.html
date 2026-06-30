@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <!-- Central Stylesheet -->
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
 
     <!-- Ambient Mesh Background -->
@@ -25,23 +27,26 @@
                 <h2>Secure Portal</h2>
                 <p>AI-Solutions Enterprise Moderation</p>
             </div>
-            
+
             <div id="login-error-alert" class="alert alert-error" style="margin-bottom: 1.5rem;"></div>
 
             <form id="admin-login-form">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" class="form-control" placeholder="e.g. admin" required autocomplete="username">
+                    <input type="text" id="username" class="form-control" placeholder="Username" required
+                        autocomplete="username">
                 </div>
                 <div class="form-group" style="margin-bottom: 2rem;">
                     <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                    <input type="password" id="password" class="form-control" placeholder="••••••••" required
+                        autocomplete="current-password">
                 </div>
-                <button type="submit" class="bg-gold-btn" style="width: 100%; justify-content: center;">Authenticate Access <i class="fa-solid fa-key"></i></button>
+                <button type="submit" class="bg-gold-btn" style="width: 100%; justify-content: center;">Authenticate
+                    Access <i class="fa-solid fa-key"></i></button>
             </form>
-            
+
             <div style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-secondary); text-align: center;">
-                <p><i class="fa-solid fa-circle-info"></i> Default Local Config: <b>admin</b> / <b>AdminGolden2026!</b></p>
+
             </div>
         </div>
     </section>
@@ -50,7 +55,7 @@
        2. Dashboard Section (Authenticated Panel)
        ========================================================================== -->
     <section id="admin-dashboard-section" class="view-panel">
-        
+
         <!-- Sidebar Navigation -->
         <div class="admin-sidebar">
             <div class="admin-brand">
@@ -83,13 +88,16 @@
             <div class="admin-header-bar">
                 <div>
                     <h1 id="panel-title-text" style="font-size: 1.8rem; margin-bottom: 0.2rem;">System Metrics</h1>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Core metrics overview of digital employee inquiries.</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Core metrics overview of digital
+                        employee inquiries.</p>
                 </div>
                 <div class="admin-user-profile">
                     <div class="admin-avatar">AD</div>
                     <div>
-                        <h4 id="admin-user-display" style="font-size: 0.95rem; font-weight: 600; line-height: 1.2;">Admin</h4>
-                        <span style="font-size: 0.75rem; color: var(--gold-primary); font-weight: 500;">Authorized</span>
+                        <h4 id="admin-user-display" style="font-size: 0.95rem; font-weight: 600; line-height: 1.2;">
+                            Admin</h4>
+                        <span
+                            style="font-size: 0.75rem; color: var(--gold-primary); font-weight: 500;">Authorized</span>
                     </div>
                 </div>
             </div>
@@ -152,10 +160,12 @@
                             <!-- Search Bar -->
                             <div class="search-bar">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                                <input type="text" id="search-inquiries" class="search-input" placeholder="Search inquiries logs...">
+                                <input type="text" id="search-inquiries" class="search-input"
+                                    placeholder="Search inquiries logs...">
                             </div>
                             <!-- Export CSV Button -->
-                            <button id="export-csv-btn" class="outline-gold-btn" style="padding: 0.5rem 1.2rem; font-size: 0.85rem; border-radius: 30px;">
+                            <button id="export-csv-btn" class="outline-gold-btn"
+                                style="padding: 0.5rem 1.2rem; font-size: 0.85rem; border-radius: 30px;">
                                 <i class="fa-solid fa-file-csv"></i> Export CSV
                             </button>
                         </div>
@@ -221,7 +231,8 @@
         <div class="detail-modal-card">
             <div class="detail-modal-header">
                 <h3 style="font-size: 1.4rem;">Inquiry Requirements File</h3>
-                <button id="close-modal-btn" class="chat-close" aria-label="Close Details"><i class="fa-solid fa-xmark"></i></button>
+                <button id="close-modal-btn" class="chat-close" aria-label="Close Details"><i
+                        class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="detail-grid">
                 <div class="detail-field">
@@ -261,4 +272,5 @@
     <!-- Scripts -->
     <script src="/static/js/admin.js"></script>
 </body>
+
 </html>
