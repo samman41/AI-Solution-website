@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Solutions - Secure Administration Console</title>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js CDN for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Central Stylesheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- Ambient Mesh Background -->
+    <div class="mesh-bg"></div>
+
+    <!-- ==========================================================================
+       1. Login Section
+       ========================================================================== -->
+    <section id="admin-login-section" class="admin-login-wrapper">
+        <div class="admin-login-card">
+            <div class="admin-login-header">
+                <h2>Secure Portal</h2>
+                <p>AI-Solutions Enterprise Moderation</p>
+            </div>
+            
+            <div id="login-error-alert" class="alert alert-error" style="margin-bottom: 1.5rem;"></div>
+
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="e.g. admin" required autocomplete="username">
+                </div>
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="bg-gold-btn" style="width: 100%; justify-content: center;">Authenticate Access <i class="fa-solid fa-key"></i></button>
+            </form>
+            
+            <div style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-secondary); text-align: center;">
+                <p><i class="fa-solid fa-circle-info"></i> Default Local Config: <b>admin</b> / <b>AdminGolden2026!</b></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       2. Dashboard Section (Authenticated Panel)
+       ========================================================================== -->
+    <section id="admin-dashboard-section" class="view-panel">
+        
+        <!-- Sidebar Navigation -->
+        <div class="admin-sidebar">
+            <div class="admin-brand">
+                <div class="logo-icon" style="width: 28px; height: 28px; font-size: 1.2rem;">AI</div>
+                <span>AI Admin Hub</span>
+            </div>
+            <div class="admin-nav">
+                <div class="admin-nav-item active" data-tab="dashboard">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard Stats</span>
+                </div>
+                <div class="admin-nav-item" data-tab="inquiries">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                    <span>Inquiries Logs</span>
+                </div>
+                <div class="admin-nav-item" data-tab="reviews">
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                    <span>Mod Reviews</span>
+                </div>
+                <div class="admin-nav-item admin-logout" id="admin-logout-btn">
+                    <i class="fa-solid fa-power-off"></i>
+                    <span>Sign Out</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="admin-main">
+            <!-- Header Bar -->
+            <div class="admin-header-bar">
+                <div>
+                    <h1 id="panel-title-text" style="font-size: 1.8rem; margin-bottom: 0.2rem;">System Metrics</h1>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Core metrics overview of digital employee inquiries.</p>
+                </div>
+                <div class="admin-user-profile">
+                    <div class="admin-avatar">AD</div>
+                    <div>
+                        <h4 id="admin-user-display" style="font-size: 0.95rem; font-weight: 600; line-height: 1.2;">Admin</h4>
+                        <span style="font-size: 0.75rem; color: var(--gold-primary); font-weight: 500;">Authorized</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 1: Metrics Overview Panel -->
+            <div id="dashboard-panel" class="view-panel active">
+                <!-- KPI Dashboard Row -->
+                <div class="kpi-row">
+                    <!-- KPI 1 -->
+                    <div class="kpi-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-inbox"></i></div>
+                        <div class="kpi-details">
+                            <p>Total Inquiries</p>
+                            <h3 id="kpi-total-inquiries">0</h3>
+                        </div>
+                    </div>
+                    <!-- KPI 2 -->
+                    <div class="kpi-card">
+                        <div class="kpi-icon" style="color: #ffb74d;"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="kpi-details">
+                            <p>Unread / New</p>
+                            <h3 id="kpi-new-inquiries">0</h3>
+                        </div>
+                    </div>
+                    <!-- KPI 3 -->
+                    <div class="kpi-card">
+                        <div class="kpi-icon" style="color: #81c784;"><i class="fa-solid fa-star"></i></div>
+                        <div class="kpi-details">
+                            <p>Total Reviews</p>
+                            <h3 id="kpi-total-reviews">0</h3>
+                        </div>
+                    </div>
+                    <!-- KPI 4 -->
+                    <div class="kpi-card">
+                        <div class="kpi-icon" style="color: #ff8a80;"><i class="fa-solid fa-clock"></i></div>
+                        <div class="kpi-details">
+                            <p>Pending Approval</p>
+                            <h3 id="kpi-pending-reviews">0</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphs Panels -->
+                <div class="charts-grid">
+                    <div class="chart-card" style="grid-column: span 2;">
+                        <h3>Inquiries By Top Countries</h3>
+                        <div style="position: relative; height: 300px; width: 100%;">
+                            <canvas id="country-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: Customer Inquiries Panel -->
+            <div id="inquiries-panel" class="view-panel">
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>Customer Inquiries Logs</h3>
+                        <div class="data-tools">
+                            <!-- Search Bar -->
+                            <div class="search-bar">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="search-inquiries" class="search-input" placeholder="Search inquiries logs...">
+                            </div>
+                            <!-- Export CSV Button -->
+                            <button id="export-csv-btn" class="outline-gold-btn" style="padding: 0.5rem 1.2rem; font-size: 0.85rem; border-radius: 30px;">
+                                <i class="fa-solid fa-file-csv"></i> Export CSV
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Inquiries Data Grid -->
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Client Name</th>
+                                    <th>Email Address</th>
+                                    <th>Company</th>
+                                    <th>Country</th>
+                                    <th>Status</th>
+                                    <th>Date Submitted</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inquiries-tbody">
+                                <!-- Loaded dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: Reviews Moderator Panel -->
+            <div id="reviews-panel" class="view-panel">
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h3>Client Reviews Moderator</h3>
+                    </div>
+
+                    <!-- Reviews Data Grid -->
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Reviewer</th>
+                                    <th>Job Title / Company</th>
+                                    <th>Stars Rating</th>
+                                    <th>Review Content Preview</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reviews-tbody">
+                                <!-- Loaded dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </section>
+
+    <!-- ==========================================================================
+       3. Details Modal Drawer
+       ========================================================================== -->
+    <div id="detail-modal" class="detail-modal">
+        <div class="detail-modal-card">
+            <div class="detail-modal-header">
+                <h3 style="font-size: 1.4rem;">Inquiry Requirements File</h3>
+                <button id="close-modal-btn" class="chat-close" aria-label="Close Details"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="detail-grid">
+                <div class="detail-field">
+                    <h4>Client Name</h4>
+                    <p id="modal-name">-</p>
+                </div>
+                <div class="detail-field">
+                    <h4>Email Address</h4>
+                    <p id="modal-email">-</p>
+                </div>
+                <div class="detail-field">
+                    <h4>Phone Number</h4>
+                    <p id="modal-phone">-</p>
+                </div>
+                <div class="detail-field">
+                    <h4>Company Name</h4>
+                    <p id="modal-company">-</p>
+                </div>
+                <div class="detail-field">
+                    <h4>Country Location</h4>
+                    <p id="modal-country">-</p>
+                </div>
+                <div class="detail-field">
+                    <h4>Professional Job Title</h4>
+                    <p id="modal-title">-</p>
+                </div>
+                <div class="detail-field full-width">
+                    <h4>Project Job Details</h4>
+                    <div id="modal-message" class="detail-details-box">
+                        -
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/admin.js"></script>
+</body>
+</html>
